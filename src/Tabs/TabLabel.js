@@ -19,4 +19,3 @@ TabLabel.propTypes = {
 }
 
 export default TabLabel;
-
