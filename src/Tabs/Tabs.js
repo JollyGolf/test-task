@@ -18,7 +18,7 @@ const Tabs = ({ indexDefaultTab }) => {
     <Label 
       onClick={ changeTab(index) } 
       active={ (activeTab === index) ? 'active' : null }
-    >Tab {index}</Label>;
+    >ITEM { index }</Label>;
   return (
     <Container>
       <Navigation>
@@ -44,16 +44,18 @@ export default Tabs;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
-  justifyContent: center;
-  margin: 0 auto;
-  font-size: 15pt;
+  width: 100%;
+  justify-content: center;
 `
 
 const Navigation = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  background-color: lightgrey;
+  justify-content: start;
+  font-size: 10pt;
+  background-color: #2196f3;
+  font-family: Arial Unicode MS;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 `

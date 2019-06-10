@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 
 const TabLabel = ({ active, children, onClick }) => {
   const Label = styled.div`
-    padding: 10px;
+    padding: 10px 45px 10px 45px;
     cursor: pointer;
-    color: ${active ? 'blue' : 'black'}
+    color: ${active ? 'white' : '#badefb'}
+    ${active ? 'border-bottom: 2px solid #d70757;' : null}
   `
   return <Label onClick={onClick}>{children}</Label> 
 }
