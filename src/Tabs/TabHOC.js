@@ -4,30 +4,32 @@ import styled from 'styled-components';
 import Tab1 from './Tab1';
 import Tab2 from './Tab2';
 import Tab3 from './Tab3';
-import TabLabel from './TabLabel';
+import Label from './TabLabel';
 
-const withHOC = activeTabIndex => () => 
-  (activeTabIndex === 1) ? <Tab1/> : 
-  (activeTabIndex === 2) ? <Tab2/> : 
-  (activeTabIndex === 3) ? <Tab3/> : null
-
-const TabFunctional = () => {
-  const [activeTabIndex, setActiveTabIndex] = useState(1);
-  const Content = withHOC(activeTabIndex);
-  const changeTab = index => () => setActiveTabIndex(index);
+const Tabs = () => {
+  const [activeTab, setTab] = useState(1);
+  const Content = () => 
+    (activeTab === 1) ? <Tab1/> : 
+    (activeTab === 2) ? <Tab2/> : 
+    (activeTab === 3) ? <Tab3/> : null;
+  const changeTab = index => () => setTab(index);
+  const withHOC = index => Label => 
+    (activeTab === index) 
+      ? <Label onClick={ changeTab(index) } active>Tab {index}</Label> 
+      : <Label onClick={ changeTab(index) }>Tab {index}</Label>;
   return (
     <Container>
       <Navigation>
-        <TabLabel active={activeTabIndex === 1} onClick={ changeTab(1) }>Tab 1</TabLabel>
-        <TabLabel active={activeTabIndex === 2} onClick={ changeTab(2) }>Tab 2</TabLabel>
-        <TabLabel active={activeTabIndex === 3} onClick={ changeTab(3) }>Tab 3</TabLabel>
+        { withHOC(1)(Label) }
+        { withHOC(2)(Label) }
+        { withHOC(3)(Label) }
       </Navigation>
       <Content /> 
     </Container>
   );
 }
 
-export default TabFunctional;
+export default Tabs;
 
 const Container = styled.div`
   display: flex;
@@ -45,31 +47,3 @@ const Navigation = styled.div`
   justify-content: center;
   background-color: lightgrey;
 `
-
-
-// class TabFunctional extends React.Component {
-//   constructor() {
-//     super()
-//     this.state = { activeTabIndex: 1 }
-//     this.changeTab = this.changeTab.bind(this)
-//   }
-  
-//   changeTab(index) {
-//     this.setState({ activeTabIndex: index });
-//   }
-
-//   render() {
-//     const { activeTabIndex } = this.state;
-//     const Content = withHOC(activeTabIndex);
-//     return (
-//       <Container>
-//         <Navigation>
-//           <TabLabel active={activeTabIndex === 1} onClick={this.changeTab.bind(this, 1)}>Tab 1</TabLabel>
-//           <TabLabel active={activeTabIndex === 2} onClick={this.changeTab.bind(this, 2)}>Tab 2</TabLabel>
-//           <TabLabel active={activeTabIndex === 3} onClick={this.changeTab.bind(this, 3)}>Tab 3</TabLabel>
-//         </Navigation>
-//         <Content /> 
-//       </Container>
-//     )
-//   }
-// }
