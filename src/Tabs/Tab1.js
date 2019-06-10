@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Tab1 = props => <Container>Tab 1</Container>;
+const Tab1 = () => <Container>Tab 1</Container>;
 
 export default Tab1;
 
