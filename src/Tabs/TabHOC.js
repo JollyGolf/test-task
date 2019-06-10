@@ -6,20 +6,10 @@ import Tab2 from './Tab2';
 import Tab3 from './Tab3';
 import TabLabel from './TabLabel';
 
-const withHOC = activeTabIndex => {
-  const Component = ({...props}) => {
-    if (activeTabIndex === 1) {
-      return <Tab1 {...props} active={activeTabIndex}/>
-    }
-    else if (activeTabIndex === 2) {
-      return <Tab2 {...props} active={activeTabIndex}/>
-    }
-    else if(activeTabIndex === 3) {
-      return <Tab3 {...props} active={activeTabIndex}/>
-    }
-  }
-  return Component;
-}
+const withHOC = activeTabIndex => () => 
+  (activeTabIndex === 1) ? <Tab1/> : 
+  (activeTabIndex === 2) ? <Tab2/> : 
+  (activeTabIndex === 3) ? <Tab3/> : null
 
 const TabFunctional = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(1);
