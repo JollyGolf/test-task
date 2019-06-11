@@ -7,13 +7,13 @@ const TabLabel = ({ active, children, onClick }) => {
     padding: 10px 45px 10px 45px;
     cursor: pointer;
     color: ${active ? 'white' : '#badefb'}
-    ${active ? 'border-bottom: 2px solid #d70757;' : null}
+    ${active && 'border-bottom: 2px solid #d70757;'}
   `
   return <Label onClick={onClick}>{children}</Label> 
 }
 
 TabLabel.propTypes = {
-  active: PropTypes.oneOf(['active', null]),
+  active: PropTypes.oneOf(['active', false]),
   children: PropTypes.array,
   onClick: PropTypes.func.isRequired
 }

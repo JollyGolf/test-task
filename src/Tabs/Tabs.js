@@ -17,7 +17,7 @@ const Tabs = ({ indexDefaultTab }) => {
   const withHOC = index => Label => 
     <Label 
       onClick={ changeTab(index) } 
-      active={ (activeTab === index) ? 'active' : null }
+      active={ activeTab === index && 'active' }
     >ITEM { index }</Label>;
   return (
     <Container>
