@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import Tab1 from './Tab1';
+import Tab1 from '../ExpansionPanel/Accordion';
 import Tab2 from './Tab2';
 import Tab3 from './Tab3';
 import Label from './TabLabel';
@@ -15,10 +15,9 @@ const Tabs = ({ indexDefaultTab }) => {
     (activeTab === 3) ? <Tab3/> : null;
   const changeTab = index => () => setTab(index);
   const withHOC = index => Label => 
-    <Label 
-      onClick={ changeTab(index) } 
-      active={ activeTab === index && 'active' }
-    >ITEM { index }</Label>;
+    <Label onClick={ changeTab(index) } active={ activeTab === index && 'active' }>
+      ITEM { index }
+    </Label>;
   return (
     <Container>
       <Navigation>
