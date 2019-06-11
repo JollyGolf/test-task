@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Panel = ({index, render, active, onClick}) => {
   return (
   	<ContainerPanel>
-  	  <div onClick={onClick}>Expansion Panel {index}</div>
+  	  <Label onClick={onClick}>Expansion Panel {index}</Label>
   	  {render(index, active)}
   	</ContainerPanel>
   );
@@ -22,4 +22,8 @@ Panel.propTypes = {
 
 const ContainerPanel = styled.div`
  
+`
+
+const Label = styled.div`
+
 `

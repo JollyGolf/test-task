@@ -8,7 +8,7 @@ const DummyData = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Susp
 
 const Accordion = ({ indexDefaultPanel }) => {
   const [active, setActive] = useState(indexDefaultPanel);
-  const changeActive = index => () => index !== active ? setActive(index) : setActive(0);
+  const changeActive = index => () => index !== active ? setActive(index) : setActive(indexDefaultPanel);
   const renderProps = (index, active) => () => index === active && <Content>{DummyData}</Content>;
   const withHOC = index => Panel => () => 
     <Panel index={index} active={active} onClick={changeActive(index)} render={renderProps(index, active)}/>;
