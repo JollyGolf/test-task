@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Panel from './Panel';
 
 const DummyData = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.';
 
-const Accordion = () => {
-  const [active, setActive] = useState(0);
+const Accordion = ({ indexDefaultPanel }) => {
+  const [active, setActive] = useState(indexDefaultPanel);
   const changeActive = index => () => index !== active ? setActive(index) : setActive(0);
   const renderProps = (index, active) => () => index === active && <Content>{DummyData}</Content>;
   const withHOC = index => Panel => () => 
@@ -15,17 +16,25 @@ const Accordion = () => {
   const Panel2 = withHOC(2)(Panel);
   const Panel3 = withHOC(3)(Panel);
   return (
-  	<Container>
+  	<ContainerAccordion>
   	  <Panel1/>
   	  <Panel2/>
   	  <Panel3/>
-  	</Container>
+  	</ContainerAccordion>
   );
 }
 
 export default Accordion;
 
-const Container = styled.div`
+Accordion.propTypes = {
+  indexDefaultPanel: PropTypes.number
+}
+
+Accordion.defaultProps = {
+  indexDefaultPanel: 0
+}
+
+const ContainerAccordion = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
