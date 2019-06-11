@@ -57,4 +57,5 @@ const Navigation = styled.div`
   font-family: Arial Unicode MS;
   font-weight: bold;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin-bottom: 20px;
 `

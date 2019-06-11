@@ -11,7 +11,13 @@ const Accordion = ({ indexDefaultPanel }) => {
   const changeActive = index => () => index !== active ? setActive(index) : setActive(indexDefaultPanel);
   const renderProps = (index, active) => () => index === active && <Content>{DummyData}</Content>;
   const withHOC = index => Panel => () => 
-    <Panel index={index} active={active} onClick={changeActive(index)} render={renderProps(index, active)}/>;
+    <Panel 
+      index={index} 
+      active={active} 
+      onClick={changeActive(index)} 
+      render={renderProps(index, active)} 
+      flag={index === active ? true : false }
+    />;
   const Panel1 = withHOC(1)(Panel);
   const Panel2 = withHOC(2)(Panel);
   const Panel3 = withHOC(3)(Panel);
@@ -42,6 +48,8 @@ const ContainerAccordion = styled.div`
 `
 
 const Content = styled.div`
-  margin: 0 auto;
   padding: 15px;
+  display: flex;
+  justify-content: start;
+  width: 100%;
 `
