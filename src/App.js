@@ -15,6 +15,7 @@ const App = () =>
     <TabContent to={2}>Content 2</TabContent>
     <TabContent to={3}>Content 3</TabContent>
   </Tabs>
+;
 
 export default App;
 
