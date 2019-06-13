@@ -1,61 +1,35 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 
-import Tab1 from '../ExpansionPanel/Accordion';
-import Tab2 from './Tab2';
-import Tab3 from './Tab3';
 import Label from './TabLabel';
+import Content from './TabContent';
 
-const Tabs = ({ indexDefaultTab }) => {
-  const [activeTab, setTab] = useState(indexDefaultTab);
-  const Content = () => 
-    (activeTab === 1) ? <Tab1/> : 
-    (activeTab === 2) ? <Tab2/> : 
-    (activeTab === 3) ? <Tab3/> : null;
-  const changeTab = index => () => setTab(index);
-  const withHOC = index => Label => 
-    <Label onClick={ changeTab(index) } active={ activeTab === index && 'active' }>
-      ITEM { index }
-    </Label>;
-  return (
-    <Container>
-      <Navigation>
-        { withHOC(1)(Label) }
-        { withHOC(2)(Label) }
-        { withHOC(3)(Label) }
-      </Navigation>
-      <Content /> 
-    </Container>
-  );
+const Context = createContext();
+
+export const Tabs = ({ children }) => {
+  const [active, setActive] = useState(1);
+  const setTab = index => () => setActive(index);
+  return <Context.Provider value={{active, setTab}}>{children}</Context.Provider>
 }
+
+export const withContext = type => El => ({ to, ...props}) => 
+  <Context.Consumer>
+    {
+      ({active, setTab}) => 
+        type === 'label' ? <El active={ active === props.index ? true : false } onClick={setTab} {...props} /> :
+        type === 'content' && to === active ? <El {...props} /> : null 
+    }
+  </Context.Consumer>
+
+export const TabLabel = withContext('label')(Label);
+export const TabContent = withContext('content')(Content);
 
 Tabs.propTypes = {
-  indexDefaultTab: PropTypes.number
+  children: PropTypes.array
 }
 
-Tabs.defaultProps = {
-  indexDefaultTab: 1
+withContext.propTypes = {
+  type: PropTypes.oneOf(['label', 'content'])
 }
 
 export default Tabs;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-`
-
-const Navigation = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start;
-  font-size: 10pt;
-  background-color: #2196f3;
-  font-family: Arial Unicode MS;
-  font-weight: bold;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  margin-bottom: 20px;
-`
